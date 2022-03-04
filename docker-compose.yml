@@ -1,0 +1,47 @@
+version: '3.6'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    networks:
+      - blyzenko-dev
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: development
+
+  api:
+    build:
+      dockerfile: Dockerfile
+    volumes:
+      - './src:/usr/src/app/src'
+      - '/usr/src/app/node_modules'
+    restart: always
+    ports:
+      - 7000:7000
+    networks:
+      - blyzenko-dev
+    depends_on:
+      - mongo
+  
+  nginx:
+    image: nginx
+    restart: always
+    volumes:
+      - './nginx/dev.conf:/etc/nginx/conf.d/default.conf'
+    ports:
+      - 8080:80
+    networks:
+      - blyzenko-dev
+    depends_on:
+      - api
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+
+networks:
+  blyzenko-dev:
+    driver: bridge 
