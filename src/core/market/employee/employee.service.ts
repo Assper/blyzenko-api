@@ -2,6 +2,7 @@ import { HttpService } from '@nestjs/axios'
 import { Injectable } from '@nestjs/common'
 import { map, Observable } from 'rxjs'
 import { MarketConfig } from 'src/config/market.config'
+import { MarketSerivce } from '../abstract/market.service'
 
 export type MarketEmployee = {
   employeeId: number
@@ -20,19 +21,17 @@ type MarketEmployeeResponse = {
 }
 
 @Injectable()
-export class EmployeeService {
-  private readonly base: string
+export class EmployeeService extends MarketSerivce {
+  protected readonly base: string
 
-  constructor(
-    private readonly config: MarketConfig,
-    private readonly http: HttpService
-  ) {
+  constructor(config: MarketConfig, private readonly http: HttpService) {
+    super(config)
     this.base = `${this.config.base}/employees`
   }
 
   getEmployees(): Observable<MarketEmployee[]> {
     return this.http
-      .get<MarketEmployeeResponse>(this.base)
+      .get<MarketEmployeeResponse>(this.base, this.options)
       .pipe(map((response) => response.data.data.employees))
   }
 }
