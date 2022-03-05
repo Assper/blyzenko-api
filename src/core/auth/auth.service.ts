@@ -28,6 +28,10 @@ export class AuthService {
     return await this.authTokenRepository.findOne({ token })
   }
 
+  async removeToken(token: string): Promise<AuthTokenDocument> {
+    return await this.authTokenRepository.deleteOne({ token }, { new: true })
+  }
+
   async createConfirm(data: CreateConfirmDTO): Promise<ConfirmTokenDocument> {
     const token = this.genConfirmToken()
     return await this.confirmTokenRepository.updateOne(

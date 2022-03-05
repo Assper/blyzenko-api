@@ -4,6 +4,7 @@ import { AuthSlot } from './auth.slot'
 import { CreateConfirmCommand } from './commands/create-confirm.command'
 import { GetAuthTokenCommand } from './commands/get-auth-token.command'
 import { LoginCommand } from './commands/login.command'
+import { LogoutCommand } from './commands/logout.command'
 import { CreateConfirmDTO } from './dto/create-confirm.dto'
 import { LoginDTO } from './dto/login.dto'
 import { CustomerLoginStrategy } from './strategies/customer-login.strategy'
@@ -24,6 +25,10 @@ export class AuthCommandFactory {
       customer: this.customerLogin
     }
     return new LoginCommand(this.service, this.slot, strategies, data)
+  }
+
+  logout(token: string): LogoutCommand {
+    return new LogoutCommand(this.service, this.slot, token)
   }
 
   getAuthToken(token: string): GetAuthTokenCommand {

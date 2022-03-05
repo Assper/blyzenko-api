@@ -10,8 +10,8 @@ import { LoginDTO } from './dto/login.dto'
 import { AuthTokenDocument } from './schemas/auth-token.schema'
 import { AuthCommandFactory } from './auth-command.factory'
 import { AuthTokenTransform } from './interceptors/auth-token-transform.interceptor'
-import { EmptyObject } from 'src/shared/types/util-types'
 import { CreateConfirmDTO } from './dto/create-confirm.dto'
+import { AuthToken } from './auth-token.decorator'
 
 @Controller('auth')
 export class AuthController {
@@ -26,9 +26,10 @@ export class AuthController {
   }
 
   @Post('logout')
+  @UseInterceptors(AuthTokenTransform)
   @HttpCode(HttpStatus.OK)
-  async logout(): Promise<EmptyObject> {
-    return {}
+  async logout(@AuthToken() token: string): Promise<AuthTokenDocument> {
+    return this.auth.logout(token).exec()
   }
 
   @Post('confirm')
