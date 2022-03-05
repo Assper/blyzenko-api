@@ -8,15 +8,21 @@ type Env = 'production' | 'test' | 'development'
 
 @Injectable()
 export class AppConfig {
-  readonly env: string
+  readonly env: Env
   readonly port: number
+  readonly isDev: boolean
+  readonly isTest: boolean
+  readonly isProd: boolean
   readonly urlLimit = '25mb'
   readonly jsonLimit = '25mb'
   readonly base = 'api'
 
   constructor(private readonly configService: NestConfigService) {
-    this.env = this.configService.get<string>('env')
+    this.env = this.configService.get<Env>('env')
     this.port = this.configService.get<number>('port')
+    this.isDev = this.env === 'development'
+    this.isTest = this.env === 'test'
+    this.isProd = this.env === 'production'
 
     this.validate()
   }
