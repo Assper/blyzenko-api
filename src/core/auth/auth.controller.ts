@@ -11,7 +11,7 @@ import { AuthTokenDocument } from './schemas/auth-token.schema'
 import { AuthCommandFactory } from './auth-command.factory'
 import { AuthTokenTransform } from './interceptors/auth-token-transform.interceptor'
 import { CreateConfirmDTO } from './dto/create-confirm.dto'
-import { AuthToken } from './auth-token.decorator'
+import { AuthToken } from 'src/shared/decorators/auth-token.decorator'
 
 @Controller('auth')
 export class AuthController {

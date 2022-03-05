@@ -4,14 +4,14 @@ import {
   UnauthorizedException
 } from '@nestjs/common'
 import { Request } from 'express'
-import { messages } from './messages'
+import { messages } from 'src/core/auth/messages'
 
 export const AuthToken = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest() as Request
     const token = request.header('Authorization')
     if (!token) {
-      throw new UnauthorizedException(messages.unauthorazied())
+      throw new UnauthorizedException(messages.unauthorized())
     }
     return token
   }

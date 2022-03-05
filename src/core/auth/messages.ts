@@ -8,5 +8,6 @@ export const messages = {
   invalidPassword: () => 'password повинен бути строкою',
   invalidConfirm: () => 'Невірний формат токена',
   authNotImplemented: () => 'Авторизація неможлива за цими данними',
-  unauthorazied: () => 'Потрібна авторизація'
+  unauthorized: () => 'Потрібна авторизація',
+  forbidden: () => 'Доступ заборонено'
 }
