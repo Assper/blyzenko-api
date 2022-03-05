@@ -5,7 +5,7 @@ import { Nullable } from 'src/shared/types/util-types'
 import { UserDocument } from './user.schema'
 
 export type UserEvent = {
-  type: 'get-by-id'
+  type: 'get'
   user: Nullable<UserDocument>
 }
 
@@ -13,9 +13,9 @@ export type UserEvent = {
 export class UserSlot implements Slot<UserEvent> {
   readonly subject$ = new Subject<UserEvent>()
 
-  getUserById(): Observable<Nullable<UserDocument>> {
+  get(): Observable<Nullable<UserDocument>> {
     return this.subject$.pipe(
-      filter(({ type }) => type === 'get-by-id'),
+      filter(({ type }) => type === 'get'),
       map(({ user }) => user)
     )
   }

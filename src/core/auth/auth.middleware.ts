@@ -7,7 +7,7 @@ type UserData = {
   role: UserRole
 }
 
-export type RequestWithUser = Request & { user: UserData }
+export type RequestWithUser = Request & { user?: UserData }
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {

@@ -13,8 +13,15 @@ export class ConfirmToken {
   phone: string
 
   @Prop({
-    type: Number,
+    type: String,
+    required: true,
     immutable: true,
+    unique: true
+  })
+  deviceId: string
+
+  @Prop({
+    type: Number,
     required: true
   })
   token: number

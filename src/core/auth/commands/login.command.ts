@@ -6,10 +6,12 @@ import { LoginDTO } from '../dto/login.dto'
 import { messages } from '../messages'
 import { AuthTokenDocument } from '../schemas/auth-token.schema'
 import { AuthStrategy } from '../strategies/auth-strategy.interface'
+import { CustomerLoginStrategy } from '../strategies/customer-login.strategy'
 import { SuperUserLoginStrategy } from '../strategies/super-user-login.strategy'
 
 type AuthStrategies = {
   superUser: SuperUserLoginStrategy
+  customer: CustomerLoginStrategy
 }
 
 export class LoginCommand implements Command<AuthTokenDocument> {
@@ -23,6 +25,10 @@ export class LoginCommand implements Command<AuthTokenDocument> {
   private getStrategy(): AuthStrategy<LoginDTO> {
     if (this.data.password) {
       return this.strategies.superUser
+    }
+
+    if (this.data.phone && this.data.confirm) {
+      return this.strategies.customer
     }
 
     throw new NotImplementedException(messages.authNotImplemented())

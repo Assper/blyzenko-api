@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
 import { ConfigModule } from 'src/config/config.module'
 import { LoggerModule } from '../logger/logger.module'
+import { UserModule } from '../user/user.module'
 import { AuthCommandFactory } from './auth-command.factory'
 import { AuthController } from './auth.controller'
 import { AuthService } from './auth.service'
@@ -14,6 +15,7 @@ import {
   ConfirmToken,
   ConfirmTokenSchema
 } from './schemas/confirm-token.schema'
+import { CustomerLoginStrategy } from './strategies/customer-login.strategy'
 import { SuperUserLoginStrategy } from './strategies/super-user-login.strategy'
 
 @Module({
@@ -23,7 +25,8 @@ import { SuperUserLoginStrategy } from './strategies/super-user-login.strategy'
     MongooseModule.forFeature([
       { name: AuthToken.name, schema: AuthTokenSchema },
       { name: ConfirmToken.name, schema: ConfirmTokenSchema }
-    ])
+    ]),
+    UserModule
   ],
   providers: [
     ConfirmTokenRepository,
@@ -32,6 +35,7 @@ import { SuperUserLoginStrategy } from './strategies/super-user-login.strategy'
     AuthSlot,
     AuthCommandFactory,
     SuperUserLoginStrategy,
+    CustomerLoginStrategy,
     AuthTokenTransform
   ],
   exports: [AuthSlot, AuthCommandFactory],
