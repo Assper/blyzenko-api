@@ -28,4 +28,18 @@ export class AuthSlot implements Slot<AuthEvent> {
       map(({ token }) => token)
     )
   }
+
+  logout(): Observable<Nullable<AuthTokenDocument>> {
+    return this.subject$.pipe(
+      filter(({ type }) => type === 'logout'),
+      map(({ token }) => token)
+    )
+  }
+
+  confirm(): Observable<Nullable<ConfirmTokenDocument>> {
+    return this.subject$.pipe(
+      filter(({ type }) => type === 'confirm'),
+      map(({ confirm }) => confirm)
+    )
+  }
 }

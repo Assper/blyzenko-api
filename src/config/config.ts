@@ -23,7 +23,8 @@ export const config = () => {
       userId: process.env.SEND_PULSE_USER_ID,
       secret: process.env.SEND_PULSE_SECRET,
       uri: process.env.SEND_PULSE_URI
-    }
+    },
+    firebase: JSON.parse(process.env.FIREBASE)
   })
 }
 
