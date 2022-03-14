@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document, Schema as MongooseSchema } from 'mongoose'
+import { Employee, EmployeeDocument } from 'src/core/employee/employee.schema'
 import { User, UserDocument } from 'src/core/user/user.schema'
 import { v4 } from 'uuid'
 
@@ -26,8 +27,8 @@ export class AuthToken {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: User.name })
   user?: UserDocument
 
-  // @Prop({ type: MongooseSchema.Types.ObjectId, ref: Employee.name })
-  // employee?: Employee
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: Employee.name })
+  employee?: EmployeeDocument
 
   @Prop({ type: Date, required: true, expires: month, default: Date.now })
   expires: Date
