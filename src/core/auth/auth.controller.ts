@@ -28,8 +28,7 @@ export class AuthController {
   @UseInterceptors(AuthTokenTransform)
   @HttpCode(HttpStatus.OK)
   async login(@Body() data: LoginDTO): Promise<AuthTokenDocument> {
-    const command = this.auth.login(data)
-    return command.exec()
+    return this.auth.login(data).exec()
   }
 
   @Post('logout')

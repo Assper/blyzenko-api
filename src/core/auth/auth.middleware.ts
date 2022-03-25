@@ -1,9 +1,11 @@
 import { Injectable, NestMiddleware } from '@nestjs/common'
-import { Request, Response, NextFunction } from 'express'
+import { NextFunction, Request, Response } from 'express'
+import { EmployeeDocument } from '../employee/employee.schema'
 import { UserRole } from '../user/user-role.enum'
+import { UserDocument } from '../user/user.schema'
 import { AuthCommandFactory } from './auth-command.factory'
 
-type UserData = {
+type UserData = Partial<UserDocument | Omit<EmployeeDocument, 'role'>> & {
   role: UserRole
 }
 
@@ -24,7 +26,15 @@ export class AuthMiddleware implements NestMiddleware {
       const token = await command.exec()
       if (token) {
         if (token.user) {
-          req.user = { role: UserRole.Customer }
+          req.user = {
+            ...token.user,
+            role: UserRole.Customer
+          }
+        } else if (token.employee) {
+          req.user = {
+            ...token.employee,
+            role: UserRole.Employee
+          }
         } else {
           req.user = { role: UserRole.SuperUser }
         }

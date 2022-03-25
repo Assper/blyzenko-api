@@ -22,7 +22,7 @@ export class NotifyController {
   private async sendSmsCode(confirm?: ConfirmTokenDocument): Promise<boolean> {
     if (!confirm) {
       this.logger.log(
-        `NotifyController (sendSmsCode): confirm token not emmited`
+        'NotifyController (sendSmsCode): confirm token not emmited'
       )
       return
     }

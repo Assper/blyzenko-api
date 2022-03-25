@@ -7,11 +7,13 @@ import { messages } from '../messages'
 import { AuthTokenDocument } from '../schemas/auth-token.schema'
 import { AuthStrategy } from '../strategies/auth-strategy.interface'
 import { CustomerLoginStrategy } from '../strategies/customer-login.strategy'
+import { EmployeeLoginStrategy } from '../strategies/employee-login.strategy'
 import { SuperUserLoginStrategy } from '../strategies/super-user-login.strategy'
 
 type AuthStrategies = {
   superUser: SuperUserLoginStrategy
   customer: CustomerLoginStrategy
+  employee: EmployeeLoginStrategy
 }
 
 export class LoginCommand implements Command<AuthTokenDocument> {
@@ -29,6 +31,10 @@ export class LoginCommand implements Command<AuthTokenDocument> {
 
     if (this.data.phone && this.data.confirm) {
       return this.strategies.customer
+    }
+
+    if (this.data.id) {
+      return this.strategies.employee
     }
 
     throw new NotImplementedException(messages.authNotImplemented())

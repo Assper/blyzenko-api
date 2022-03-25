@@ -8,6 +8,7 @@ import { LogoutCommand } from './commands/logout.command'
 import { CreateConfirmDTO } from './dto/create-confirm.dto'
 import { LoginDTO } from './dto/login.dto'
 import { CustomerLoginStrategy } from './strategies/customer-login.strategy'
+import { EmployeeLoginStrategy } from './strategies/employee-login.strategy'
 import { SuperUserLoginStrategy } from './strategies/super-user-login.strategy'
 
 @Injectable()
@@ -16,13 +17,15 @@ export class AuthCommandFactory {
     private readonly service: AuthService,
     private readonly slot: AuthSlot,
     private readonly superUserLogin: SuperUserLoginStrategy,
-    private readonly customerLogin: CustomerLoginStrategy
+    private readonly customerLogin: CustomerLoginStrategy,
+    private readonly employeeLogin: EmployeeLoginStrategy
   ) {}
 
   login(data: LoginDTO): LoginCommand {
     const strategies = {
       superUser: this.superUserLogin,
-      customer: this.customerLogin
+      customer: this.customerLogin,
+      employee: this.employeeLogin
     }
     return new LoginCommand(this.service, this.slot, strategies, data)
   }

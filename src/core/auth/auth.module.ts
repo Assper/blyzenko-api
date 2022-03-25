@@ -16,6 +16,7 @@ import {
   ConfirmTokenSchema
 } from './schemas/confirm-token.schema'
 import { CustomerLoginStrategy } from './strategies/customer-login.strategy'
+import { EmployeeLoginStrategy } from './strategies/employee-login.strategy'
 import { SuperUserLoginStrategy } from './strategies/super-user-login.strategy'
 
 @Module({
@@ -36,6 +37,7 @@ import { SuperUserLoginStrategy } from './strategies/super-user-login.strategy'
     AuthCommandFactory,
     SuperUserLoginStrategy,
     CustomerLoginStrategy,
+    EmployeeLoginStrategy,
     AuthTokenTransform
   ],
   exports: [AuthSlot, AuthCommandFactory],
