@@ -38,4 +38,5 @@ export type AuthTokenDocument = AuthToken & Document<AuthToken>
 export const AuthTokenSchema = SchemaFactory.createForClass(AuthToken)
 AuthTokenSchema.pre(/^find/, function () {
   this.populate('user')
+  this.populate('employee')
 })
