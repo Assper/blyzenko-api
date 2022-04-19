@@ -1,5 +1,5 @@
-import { Prop, SchemaFactory, Schema, raw } from '@nestjs/mongoose'
-import { Document } from 'mongoose'
+import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { Types } from 'mongoose'
 
 export type UserAddress = {
   street: string
@@ -21,6 +21,8 @@ const Address = raw({
 
 @Schema()
 export class User {
+  _id: Types.ObjectId
+
   @Prop({
     type: String,
     required: true
@@ -93,5 +95,4 @@ export class User {
   createdAt: Date
 }
 
-export type UserDocument = User & Document<User>
 export const UserSchema = SchemaFactory.createForClass(User)

@@ -2,16 +2,13 @@ import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 import { Repository } from 'src/shared/abstract/repository.abstract'
-import {
-  ConfirmToken,
-  ConfirmTokenDocument
-} from '../schemas/confirm-token.schema'
+import { ConfirmToken } from '../schemas/confirm-token.schema'
 
 @Injectable()
-export class ConfirmTokenRepository extends Repository<ConfirmTokenDocument> {
+export class ConfirmTokenRepository extends Repository<ConfirmToken> {
   constructor(
     @InjectModel(ConfirmToken.name)
-    protected readonly model: Model<ConfirmTokenDocument>
+    protected readonly model: Model<ConfirmToken>
   ) {
     super()
     this.model.syncIndexes()

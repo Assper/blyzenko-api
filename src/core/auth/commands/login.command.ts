@@ -4,7 +4,7 @@ import { AuthService } from '../auth.service'
 import { AuthSlot } from '../auth.slot'
 import { LoginDTO } from '../dto/login.dto'
 import { messages } from '../messages'
-import { AuthTokenDocument } from '../schemas/auth-token.schema'
+import { AuthToken } from '../schemas/auth-token.schema'
 import { AuthStrategy } from '../strategies/auth-strategy.interface'
 import { CustomerLoginStrategy } from '../strategies/customer-login.strategy'
 import { EmployeeLoginStrategy } from '../strategies/employee-login.strategy'
@@ -16,7 +16,7 @@ type AuthStrategies = {
   employee: EmployeeLoginStrategy
 }
 
-export class LoginCommand implements Command<AuthTokenDocument> {
+export class LoginCommand implements Command<AuthToken> {
   constructor(
     private readonly service: AuthService,
     private readonly slot: AuthSlot,
@@ -40,7 +40,7 @@ export class LoginCommand implements Command<AuthTokenDocument> {
     throw new NotImplementedException(messages.authNotImplemented())
   }
 
-  async exec(): Promise<AuthTokenDocument> {
+  async exec(): Promise<AuthToken> {
     const strategy = this.getStrategy()
     const token = await this.service.login(this.data, strategy)
     this.slot.subject$.next({

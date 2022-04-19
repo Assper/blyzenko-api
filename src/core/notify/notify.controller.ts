@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common'
 import { AuthSlot } from '../auth/auth.slot'
-import { ConfirmTokenDocument } from '../auth/schemas/confirm-token.schema'
+import { ConfirmToken } from '../auth/schemas/confirm-token.schema'
 import { LoggerService } from '../logger/logger.service'
 import { NotifyService } from './notify.service'
 import { SmsPhonePipe } from './sms-phone.pipe'
@@ -19,7 +19,7 @@ export class NotifyController {
     this.authSlot.confirm().subscribe(this.sendSmsCode.bind(this))
   }
 
-  private async sendSmsCode(confirm?: ConfirmTokenDocument): Promise<boolean> {
+  private async sendSmsCode(confirm?: ConfirmToken): Promise<boolean> {
     if (!confirm) {
       this.logger.log(
         'NotifyController (sendSmsCode): confirm token not emmited'

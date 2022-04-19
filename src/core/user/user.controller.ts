@@ -3,7 +3,7 @@ import { AuthGuard } from 'src/shared/guards/auth.guard'
 import { OwnDataGuard } from 'src/shared/guards/own-data.guard'
 import { IsMongoIdPipe } from 'src/shared/pipes/mongo-id.pipe'
 import { UserCommandFactory } from './user-command.factory'
-import { UserDocument } from './user.schema'
+import { User } from './user.schema'
 
 @Controller('users')
 @UseGuards(AuthGuard)
@@ -12,7 +12,7 @@ export class UserController {
 
   @Get(':id')
   @UseGuards(OwnDataGuard)
-  getById(@Param('id', IsMongoIdPipe) userId: string): Promise<UserDocument> {
+  getById(@Param('id', IsMongoIdPipe) userId: string): Promise<User> {
     const command = this.user.getUserById(userId)
     return command.exec()
   }

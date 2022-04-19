@@ -1,11 +1,11 @@
 import { Injectable, NestMiddleware } from '@nestjs/common'
 import { NextFunction, Request, Response } from 'express'
-import { EmployeeDocument } from '../employee/employee.schema'
+import { Employee } from '../employee/employee.schema'
 import { UserRole } from '../user/user-role.enum'
-import { UserDocument } from '../user/user.schema'
+import { User } from '../user/user.schema'
 import { AuthCommandFactory } from './auth-command.factory'
 
-type UserData = Partial<UserDocument | Omit<EmployeeDocument, 'role'>> & {
+type UserData = Partial<User | Omit<Employee, 'role'>> & {
   role: UserRole
 }
 

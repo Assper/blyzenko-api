@@ -1,10 +1,12 @@
-import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose'
-import { Document } from 'mongoose'
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { Types } from 'mongoose'
 
 const tokenExpire = 60 * 5 // 5m
 
 @Schema()
 export class ConfirmToken {
+  _id: Types.ObjectId
+
   @Prop({
     type: String,
     immutable: true,
@@ -30,5 +32,4 @@ export class ConfirmToken {
   expires: Date
 }
 
-export type ConfirmTokenDocument = ConfirmToken & Document<ConfirmToken>
 export const ConfirmTokenSchema = SchemaFactory.createForClass(ConfirmToken)

@@ -1,7 +1,7 @@
-import { init } from 'sendpulse-api'
 import { Injectable } from '@nestjs/common'
 import { ConfigService as NestConfigService } from '@nestjs/config'
 import { resolve } from 'path'
+import { init } from 'sendpulse-api'
 
 @Injectable()
 export class SendPulseConfig {
@@ -15,6 +15,6 @@ export class SendPulseConfig {
     this.password = this.configService.get<string>('sendPulse.secret')
     this.uri = this.configService.get<string>('sendPulse.uri')
 
-    init(this.userId, this.password, this.storage, console.log)
+    init(this.userId, this.password, this.storage, null)
   }
 }

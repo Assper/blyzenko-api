@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
 import { ConfigModule } from 'src/config/config.module'
+import { EmployeeModule } from '../employee/employee.module'
 import { LoggerModule } from '../logger/logger.module'
 import { UserModule } from '../user/user.module'
 import { AuthCommandFactory } from './auth-command.factory'
@@ -27,6 +28,7 @@ import { SuperUserLoginStrategy } from './strategies/super-user-login.strategy'
       { name: AuthToken.name, schema: AuthTokenSchema },
       { name: ConfirmToken.name, schema: ConfirmTokenSchema }
     ]),
+    EmployeeModule,
     UserModule
   ],
   providers: [

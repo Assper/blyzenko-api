@@ -1,5 +1,5 @@
 import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { Document } from 'mongoose'
+import { Types } from 'mongoose'
 
 export type StoreSettings = {
   selfPickaping: boolean
@@ -19,6 +19,8 @@ const StoreSettingsSchema = raw({
 
 @Schema()
 export class Store {
+  _id: Types.ObjectId
+
   @Prop({
     type: String,
     required: true
@@ -63,5 +65,4 @@ export class Store {
   settings: StoreSettings
 }
 
-export type StoreDocument = Store & Document<Store>
 export const StoreSchema = SchemaFactory.createForClass(Store)

@@ -1,5 +1,5 @@
-import { AuthTokenDocument } from '../schemas/auth-token.schema'
+import { AuthToken } from '../schemas/auth-token.schema'
 
 export interface AuthStrategy<T> {
-  login(data: T): AuthTokenDocument | Promise<AuthTokenDocument>
+  login(data: T): AuthToken | Promise<AuthToken>
 }

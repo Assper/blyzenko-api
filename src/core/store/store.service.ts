@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { Service } from 'src/shared/abstract/service.abstract'
 import { StoreRepository } from './store.repository'
-import { StoreDocument } from './store.schema'
+import { Store } from './store.schema'
 
 @Injectable()
-export class StoreService extends Service<StoreRepository, StoreDocument> {
+export class StoreService extends Service<StoreRepository, Store> {
   constructor(protected readonly repository: StoreRepository) {
     super()
   }

@@ -1,5 +1,5 @@
 import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { Document } from 'mongoose'
+import { Types } from 'mongoose'
 import { EmployeeRole } from './enums/employee-role.enum'
 import { EmployeeStatus } from './enums/employee-status.enum'
 
@@ -17,6 +17,8 @@ const EmployeeNameSchema = raw({
 
 @Schema()
 export class Employee {
+  _id: Types.ObjectId
+
   @Prop({
     type: Number,
     required: true,
@@ -71,5 +73,4 @@ export class Employee {
   isAvailable: boolean
 }
 
-export type EmployeeDocument = Employee & Document<Employee>
 export const EmployeeSchema = SchemaFactory.createForClass(Employee)

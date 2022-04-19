@@ -5,7 +5,7 @@ import { v4 } from 'uuid'
 import { LoginDTO } from '../dto/login.dto'
 import { messages } from '../messages'
 import { AuthTokenRepository } from '../repositories/auth-token.repository'
-import { AuthTokenDocument } from '../schemas/auth-token.schema'
+import { AuthToken } from '../schemas/auth-token.schema'
 import { AuthStrategy } from './auth-strategy.interface'
 
 @Injectable()
@@ -26,7 +26,7 @@ export class SuperUserLoginStrategy implements AuthStrategy<LoginDTO> {
     }
   }
 
-  async login(data: LoginDTO): Promise<AuthTokenDocument> {
+  async login(data: LoginDTO): Promise<AuthToken> {
     this.validate(data)
     const token = v4()
     return await this.authTokenRepository.updateOne(

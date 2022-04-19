@@ -8,14 +8,14 @@ import {
   UseInterceptors
 } from '@nestjs/common'
 import { AppConfig } from 'src/config/app.config'
-import { AuthToken } from 'src/shared/decorators/auth-token.decorator'
-import { OwnDataGuard } from 'src/shared/guards/own-data.guard'
+import { AuthToken as AuthTokenDec } from 'src/shared/decorators/auth-token.decorator'
+import { AuthGuard } from 'src/shared/guards/auth.guard'
 import { EmptyObject } from 'src/shared/types/util-types'
 import { AuthCommandFactory } from './auth-command.factory'
 import { CreateConfirmDTO } from './dto/create-confirm.dto'
 import { LoginDTO } from './dto/login.dto'
 import { AuthTokenTransform } from './interceptors/auth-token-transform.interceptor'
-import { AuthTokenDocument } from './schemas/auth-token.schema'
+import { AuthToken } from './schemas/auth-token.schema'
 
 @Controller('auth')
 export class AuthController {
@@ -27,15 +27,15 @@ export class AuthController {
   @Post('login')
   @UseInterceptors(AuthTokenTransform)
   @HttpCode(HttpStatus.OK)
-  async login(@Body() data: LoginDTO): Promise<AuthTokenDocument> {
+  async login(@Body() data: LoginDTO): Promise<AuthToken> {
     return this.auth.login(data).exec()
   }
 
   @Post('logout')
-  @UseGuards(OwnDataGuard)
+  @UseGuards(AuthGuard)
   @UseInterceptors(AuthTokenTransform)
   @HttpCode(HttpStatus.OK)
-  async logout(@AuthToken() token: string): Promise<AuthTokenDocument> {
+  async logout(@AuthTokenDec() token: string): Promise<AuthToken> {
     return this.auth.logout(token).exec()
   }
 

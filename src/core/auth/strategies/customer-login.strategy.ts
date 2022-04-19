@@ -6,7 +6,7 @@ import { LoginDTO } from '../dto/login.dto'
 import { messages } from '../messages'
 import { AuthTokenRepository } from '../repositories/auth-token.repository'
 import { ConfirmTokenRepository } from '../repositories/confirm-token.repository'
-import { AuthTokenDocument } from '../schemas/auth-token.schema'
+import { AuthToken } from '../schemas/auth-token.schema'
 import { AuthStrategy } from './auth-strategy.interface'
 
 @Injectable()
@@ -35,7 +35,7 @@ export class CustomerLoginStrategy implements AuthStrategy<LoginDTO> {
     }
   }
 
-  async login(data: LoginDTO): Promise<AuthTokenDocument> {
+  async login(data: LoginDTO): Promise<AuthToken> {
     await this.validate(data)
     const token = v4()
     const user = await this.user.getUserByPhone(data.phone).exec()
